@@ -490,3 +490,8 @@ if __name__ == "__main__":
     game_view = Game()
     window.show_view(game_view)
     arcade.run()
+
+
+
+
+    
