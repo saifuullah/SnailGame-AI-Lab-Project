@@ -54,15 +54,12 @@ class Game(arcade.View):
                 self.human = 1
                 self.bot = 2
                 self.state = "GameOn"
-        elif self.state == "GameOver":
+        elif self.state == "GameOver" or self.state == "DRAW":
             if key == arcade.key.R:
-                self.human = 1
-                self.bot = 2
-                self.state = "GameOn"
-                self.botScore = 0
-                self.humanScore = 0
-                self.initilizeBoard(10, 10)
-
+                self.board.clear()
+                self.state = "GameInstruction"
+                game = Game()
+                self.window.show_view(game)
 
 
     def evalBoard(self):
@@ -100,22 +97,24 @@ class Game(arcade.View):
     def on_draw(self):
         arcade.start_render()
         if self.state == "GameMenu":
-            arcade.draw_text("Welcome to snails game", 450, 400, arcade.color.WHITE, font_size=40, anchor_x="center")
-            arcade.draw_text("Welcome to snails game", 450, 400, arcade.color.WHITE, font_size=40, anchor_x="center")
-            arcade.draw_text("Welcome to snails game", 450, 400, arcade.color.WHITE, font_size=40, anchor_x="center")
-            arcade.draw_text("Welcome to snails game", 450, 400, arcade.color.WHITE, font_size=40, anchor_x="center")
-            arcade.draw_text("Welcome to snails game", 452, 400, arcade.color.WHITE, font_size=40, anchor_x="center")
-            arcade.draw_text("Welcome to snails game", 452, 400, arcade.color.WHITE, font_size=40, anchor_x="center")
+            arcade.draw_text("Welcome To Snails Game", 450, 400, arcade.color.WHITE, font_size=40, anchor_x="center")
+            arcade.draw_text("Welcome To Snails Game", 450, 400, arcade.color.WHITE, font_size=40, anchor_x="center")
+            arcade.draw_text("Welcome To Snails Game", 450, 400, arcade.color.WHITE, font_size=40, anchor_x="center")
+            arcade.draw_text("Welcome To Snails Game", 450, 400, arcade.color.WHITE, font_size=40, anchor_x="center")
+            arcade.draw_text("Welcome To Snails Game", 452, 400, arcade.color.WHITE, font_size=40, anchor_x="center")
+            arcade.draw_text("Welcome To Snails Game", 452, 400, arcade.color.WHITE, font_size=40, anchor_x="center")
 
 
-            arcade.draw_text("===> Press any key to continue", 480, 350, arcade.color.WHITE, font_size=20, anchor_x="center")
-            arcade.draw_text("===> Press any key to continue", 480, 350, arcade.color.WHITE, font_size=20, anchor_x="center")
-            arcade.draw_text("===> Press any key to continue", 480, 350, arcade.color.WHITE, font_size=20, anchor_x="center")
+            arcade.draw_text(" Press any key to continue", 480, 350, arcade.color.WHITE, font_size=20, anchor_x="center")
+            arcade.draw_text(" Press any key to continue", 480, 350, arcade.color.WHITE, font_size=20, anchor_x="center")
+            arcade.draw_text(" Press any key to continue", 480, 350, arcade.color.WHITE, font_size=20, anchor_x="center")
         
 
-            arcade.draw_text("DEVELOPED BY: WISHA KHURSHID, SAIF ULLAH, SYED WAJEH", 500, 150, arcade.color.WHITE, font_size=20, anchor_x="center")
-            arcade.draw_text("DEVELOPED BY: WISHA KHURSHID, SAIF ULLAH, SYED WAJEH", 500, 150, arcade.color.WHITE, font_size=20, anchor_x="center")
-            arcade.draw_text("DEVELOPED BY: WISHA KHURSHID, SAIF ULLAH, SYED WAJEH", 500, 150, arcade.color.WHITE, font_size=20, anchor_x="center")
+            arcade.draw_text("DEVELOPED BY: WISHA KHURSHID, SAIF ULLAH, SYED WAJEH", 500, 70, arcade.color.WHITE, font_size=20, anchor_x="center")
+            arcade.draw_text("DEVELOPED BY: WISHA KHURSHID, SAIF ULLAH, SYED WAJEH", 500, 70, arcade.color.WHITE, font_size=20, anchor_x="center")
+            arcade.draw_text("DEVELOPED BY: WISHA KHURSHID, SAIF ULLAH, SYED WAJEH", 500, 70, arcade.color.WHITE, font_size=20, anchor_x="center")
+
+            arcade.draw_text("____________________________________________________", 500, 65, arcade.color.WHITE, font_size=20, anchor_x="center")
 
         elif self.state == "GameOn":
             # self.shape_list = arcade.ShapeElementList()
@@ -185,31 +184,61 @@ class Game(arcade.View):
         elif self.state == "GameOver":
             if self.win == "HUMAN":
                 arcade.draw_text("Congratulations, you won !", 300, 300, arcade.color.WHITE, font_size=40, anchor_x="center")
-                arcade.draw_text("Click to continue", 300, 250, arcade.color.WHITE, font_size=20, anchor_x="center")
+                arcade.draw_text("Congratulations, you won !", 300, 300, arcade.color.WHITE, font_size=40, anchor_x="center")
+                arcade.draw_text("Press R to continue", 300, 250, arcade.color.WHITE, font_size=20, anchor_x="center")
 
             elif self.win == "BOT":
+                arcade.draw_text("Computer wins :(", 300, 300, arcade.color.WHITE, font_size=50, anchor_x="center")
                 arcade.draw_text("Computer wins :(", 300, 300, arcade.color.WHITE, font_size=50, anchor_x="center")
                 arcade.draw_text("Press R to continue", 300, 250, arcade.color.WHITE, font_size=20, anchor_x="center")
 
 
             elif self.win == "DRAW":
                 arcade.draw_text("It's a draw..", 300, 300, arcade.color.WHITE, font_size=50, anchor_x="center")
-                arcade.draw_text("Click to continue", 300, 250, arcade.color.WHITE, font_size=20, anchor_x="center")
+                arcade.draw_text("It's a draw..", 300, 300, arcade.color.WHITE, font_size=50, anchor_x="center")
+                arcade.draw_text("Press R to continue", 300, 250, arcade.color.WHITE, font_size=20, anchor_x="center")
 
 
         elif self.state == "GameInstruction":
                 arcade.draw_text("GAME INSTRUCTION:", 100, 520, arcade.color.WHITE, font_size=20)
                 arcade.draw_text("GAME INSTRUCTION:", 100, 520, arcade.color.WHITE, font_size=20)
-                arcade.draw_text("GAME INSTRUCTION:", 100, 520, arcade.color.WHITE, font_size=20)
+                arcade.draw_text("GAME INSTRUCTION:", 100, 521, arcade.color.WHITE, font_size=20)
                 
-                arcade.draw_text("1- Capture maximum space to win the Game.", 150, 480, arcade.color.WHITE, font_size=14)
-                arcade.draw_text("1- Capture maximum space to win the Game.", 150, 480, arcade.color.WHITE, font_size=14)
+                arcade.draw_text("1- Capture maximum number of boxes to win the Game.", 150, 480, arcade.color.WHITE, font_size=14)
+                arcade.draw_text("1- Capture maximum number of boxes to win the Game.", 150, 480, arcade.color.WHITE, font_size=14)
 
                 arcade.draw_text("2- You can roll back through your own splashes.", 150, 460, arcade.color.WHITE, font_size=14)
                 arcade.draw_text("2- You can roll back through your own splashes.", 150, 460, arcade.color.WHITE, font_size=14)
 
                 arcade.draw_text("3- Any Player that capture 50 boxes will be winner.", 150, 440, arcade.color.WHITE, font_size=14)
                 arcade.draw_text("3- Any Player that capture 50 boxes will be winner.", 150, 440, arcade.color.WHITE, font_size=14)
+
+                arcade.draw_text("4- You cannot move/jump through opponent's player snail/splash.", 150, 420, arcade.color.WHITE, font_size=14)
+                arcade.draw_text("4- You cannot move/jump through opponent's player snail/splash.", 150, 420, arcade.color.WHITE, font_size=14)
+
+                arcade.draw_text("5- Human Snail is at TOP RIGHT CORNER.", 150, 400, arcade.color.WHITE, font_size=14)
+                arcade.draw_text("5- Human Snail is at TOP RIGHT CORNER.", 150, 400, arcade.color.WHITE, font_size=14)
+
+                arcade.draw_text("6- Bot Snail is at BOTTOM LEFT CORNER.", 150, 380, arcade.color.WHITE, font_size=14)
+                arcade.draw_text("6- Bot Snail is at BOTTOM LEFT CORNER.", 150, 380, arcade.color.WHITE, font_size=14)
+
+                arcade.draw_text("7- Turn will be lost if you click on opponent Snail/Splash.", 150, 360, arcade.color.WHITE, font_size=14)
+                arcade.draw_text("7- Turn will be lost if you click on opponent Snail/Splash.", 150, 360, arcade.color.WHITE, font_size=14)
+
+                arcade.draw_text("8- You can only move LEFT, RIGHT, UP, DOWN.", 150, 340, arcade.color.WHITE, font_size=14)
+                arcade.draw_text("8- You can only move LEFT, RIGHT, UP, DOWN.", 150, 340, arcade.color.WHITE, font_size=14)
+
+                arcade.draw_text("9- Always click on box that is next to your Snail,", 150, 320, arcade.color.WHITE, font_size=14)
+                arcade.draw_text("9- Always click on box that is next to your Snail,", 150, 320, arcade.color.WHITE, font_size=14)
+
+                arcade.draw_text("   Otherwise you will lose your TURN.", 150, 300, arcade.color.WHITE, font_size=14)
+                arcade.draw_text("   Otherwise you will lose your TURN.", 150, 300, arcade.color.WHITE, font_size=14)
+
+
+                arcade.draw_text("PRESS SPACE BUTTON TO START THE GAME. ", 200, 90, arcade.color.WHITE, font_size=22)
+                arcade.draw_text("PRESS SPACE BUTTON TO START THE GAME. ", 200, 90, arcade.color.WHITE, font_size=22)
+                arcade.draw_text("PRESS SPACE BUTTON TO START THE GAME. ", 201, 90, arcade.color.WHITE, font_size=22)
+
 
 
 ##############################################
@@ -494,4 +523,3 @@ if __name__ == "__main__":
 
 
 
-    
